@@ -15,7 +15,9 @@ namespace MicrowaweOven.Test.Integration
     public class DoorIntegration
     {
         private IUserInterface _userinterface;
-        private IButton _button;
+        private IButton _button1;
+        private IButton _button2;
+        private IButton _button3;
         private IDoor _door;
         private ILight _light;
         private IDisplay _display;
@@ -25,12 +27,14 @@ namespace MicrowaweOven.Test.Integration
 
         public void Setup ()
         {
-            _button = Substitute.For<IButton>();
+            _button1 = Substitute.For<IButton>();
+            _button2 = Substitute.For<IButton>();
+            _button3 = Substitute.For<IButton>();
             _door = new Door();
             _light = Substitute.For<Light>();
             _display = Substitute.For<Display>();
             _controller = Substitute.For<CookController>();
-            _userinterface = new UserInterface(_button,_button,_button,_door,_display,_light,_controller);
+            _userinterface = new UserInterface(_button1,_button2,_button3,_door,_display,_light,_controller);
         }
 
         [Test]
