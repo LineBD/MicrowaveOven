@@ -23,7 +23,7 @@ namespace MicrowaweOven.Test.Integration
         private IDisplay _display;
         private ICookController _controller;
         
-
+        [SetUp]
 
         public void Setup ()
         {
@@ -31,9 +31,9 @@ namespace MicrowaweOven.Test.Integration
             _button2 = Substitute.For<IButton>();
             _button3 = Substitute.For<IButton>();
             _door = new Door();
-            _light = Substitute.For<Light>();
-            _display = Substitute.For<Display>();
-            _controller = Substitute.For<CookController>();
+            _light = Substitute.For<ILight>();
+            _display = Substitute.For<IDisplay>();
+            _controller = Substitute.For<ICookController>();
             _userinterface = new UserInterface(_button1,_button2,_button3,_door,_display,_light,_controller);
         }
 
@@ -48,12 +48,12 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        public void ClodeDoor_DoorClosed_LightIsoff()
+        public void CloseDoor_DoorClosed_LightIsoff()
         {
             _door.Open();
             _door.Close();
 
-            _light.Received(2).TurnOff();
+            _light.Received(1).TurnOff();
         }
 
     }
