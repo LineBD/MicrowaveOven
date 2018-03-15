@@ -12,7 +12,7 @@ using NSubstitute;
 namespace MicrowaweOven.Test.Integration
 {
     [TestFixture]
-    class ButtonIntegration
+    class DisplayIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;
@@ -22,34 +22,22 @@ namespace MicrowaweOven.Test.Integration
         private ILight _light;
         private IDisplay _display;
         private ICookController _controller;
+        private IOutput _output;
 
         [SetUp]
         public void SetUp()
         {
-            _door=new Door();
-            _light = Substitute.For<ILight>();
-            _display = Substitute.For<IDisplay>();
+            _door = new Door();
+            _light = new Light(_output);
+            _display = new Display(_output);
             _controller = Substitute.For<ICookController>();
-            _startcancelButton=new Button();
-            _powerButton=new Button();
-            _timerButton=new Button();
-            _userinterface=new UserInterface(_powerButton,_timerButton,_startcancelButton,_door,_display,_light,_controller);
+            _startcancelButton = new Button();
+            _powerButton = new Button();
+            _timerButton = new Button();
+            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
         }
+        
+        
 
-        [Test]
-        public void PowerOn_PowerOnPressed_ShowPowerOnDisplay()
-        {
-            _powerButton.Press();
-
-            _display.Received(1).ShowPower(50);
-        }
-
-        [Test]
-        public void TimerOn_TimerPressed_ShowTime()
-        {
-            _timerButton.Press();
-
-            _display.Received(1).ShowTime(0, 0);
-        }
     }
 }
