@@ -40,8 +40,8 @@ namespace MicrowaweOven.Test.Integration
         public void PowerOn_PowerOnPressed_ShowPowerOnDisplay()
         {
             _powerButton.Press();
-
             _display.Received(1).ShowPower(50);
+            
         }
 
         [Test]
@@ -49,7 +49,9 @@ namespace MicrowaweOven.Test.Integration
         {
             _timerButton.Press();
 
-            _display.Received(1).ShowTime(1, 0);
+            _display.Received(1).ShowTime(01,00);
+
+            //Hvorfor fungerer den ikke, når det kører over?
         }
     }
 }
