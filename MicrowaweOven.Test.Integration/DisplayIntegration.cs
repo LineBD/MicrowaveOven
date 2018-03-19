@@ -23,6 +23,9 @@ namespace MicrowaweOven.Test.Integration
         private IDisplay _display;
         private ICookController _controller;
         private IOutput _output;
+        private int power;
+        private int min;
+        private int sec;
 
         [SetUp]
         public void SetUp()
@@ -40,11 +43,19 @@ namespace MicrowaweOven.Test.Integration
 
         [Test]
 
-        public void LogLine_OutPutLineIsCorrect_ShowOutput()
+        public void LogLine_OutPutLineIsCorrectPower_ShowOutput()
         {
             _powerButton.Press();
+            _output.Received().OutputLine($"Display shows: {power} W");
 
-            _output.Received(1).OutputLine("Display shows: {50} W");
+        }
+        [Test]
+
+        public void LogLine_OutputLineIsCorrectTime_ShowOutput()
+        {
+            _timerButton.Press();
+
+            _output.Received().OutputLine($"Display shows: 01:00");
         }
         
 
