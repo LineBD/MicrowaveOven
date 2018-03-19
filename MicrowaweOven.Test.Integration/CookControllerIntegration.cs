@@ -59,7 +59,7 @@ namespace MicrowaweOven.Test.Integration
             _controller.Stop();
 
             _output.Received().OutputLine("PowerTube turned off");
-        }
+        } 
 
     }
 }

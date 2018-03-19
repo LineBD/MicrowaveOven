@@ -43,21 +43,21 @@ namespace MicrowaweOven.Test.Integration
 
         
         [Test]
-
-           public void LogLine_OutPutLineIsCorrectPower_ShowOutput()
+        [TestCase(50)]
+           public void LogLine_OutPutLineIsCorrectPower_ShowOutput(int power)
 
         {
-            _powerButton.Press();
+            _display.ShowPower(power);
             _output.Received().OutputLine($"Display shows: {power} W");
 
         }
         [Test]
-
-        public void LogLine_OutputLineIsCorrectTime_ShowOutput()
+        [TestCase(00,00)]
+        public void LogLine_OutputLineIsCorrectTime_ShowOutput(int min, int sec)
         {
-            _timerButton.Press();
+            _display.ShowTime(min,sec);
 
-            _output.Received().OutputLine($"Display shows: 01:00");
+            _output.Received().OutputLine($"Display shows: {min:D2}:{sec:D2}");
         }
         
 
