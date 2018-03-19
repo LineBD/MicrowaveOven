@@ -71,8 +71,51 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        public void 
+        public void TurnOn_LightIsOn_OutputIsCorrect()
+        {
+            _light.TurnOn();
+            _output.OutputLine("Light is turned on");
+        }
 
+        [Test]
+        public void TurnOff_LightIsOff_OutputIsCorrect()
+        {
+            _light.TurnOn();
+            _light.TurnOff();
+            _output.OutputLine("Light is turned off");
+        }
+
+        [Test]
+        public void StartCooking_CookingStarted_OutputIsCorrect()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _controller.Received().StartCooking(50,60);
+        }
+
+        //[Test]
+        //public void StopCooking_CookingStoped_OutputIsCorrect()
+        //{
+        //    _door.Open();
+        //    _door.Close();
+        //    _powerButton.Press();
+        //    _timerButton.Press();
+        //    _startcancelButton.Press();
+        //    _display.Received().Clear();
+        //    _light.Received().TurnOff();
+        //    _controller.Received().Stop();
+        //}
+
+        [Test]
+        public void Clear_EmptyDisplay_OutputIsCorret()
+        {
+            _door.Open();
+            _door.Close();
+            _powerButton.Press();
+            _timerButton.Press();
+            _display.Received().Clear();
+        }
     }
 }
 
