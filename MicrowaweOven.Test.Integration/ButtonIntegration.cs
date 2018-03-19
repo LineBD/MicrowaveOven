@@ -49,7 +49,7 @@ namespace MicrowaweOven.Test.Integration
         {
             _timerButton.Press();
 
-            _display.Received(1).ShowTime(0, 0);
+            _display.Received(1).ShowTime(1, 0);
         }
     }
 }
