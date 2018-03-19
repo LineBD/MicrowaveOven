@@ -41,7 +41,7 @@ namespace MicrowaweOven.Test.Integration
             _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
         }
 
-        
+        [Test]
 
         public void LogLine_OutPutLineIsCorrectPower_ShowOutput()
         {
