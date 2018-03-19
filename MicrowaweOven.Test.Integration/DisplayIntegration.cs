@@ -39,7 +39,7 @@ namespace MicrowaweOven.Test.Integration
         }
 
         
-
+        [Test]
         public void LogLine_OutPutLineIsCorrect_ShowOutput()
         {
             _powerButton.Press();
