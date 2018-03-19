@@ -44,11 +44,21 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        public void CookControllerStart_StartButtonPressed_Started()
+        [TestCase(60,10)]
+        public void CookControllerStart_StartButtonPressed_Started(int power, int time)
         {
-            _startcancelButton.Press();
+            _controller.StartCooking(power,time);
 
-            _output.Received(1).OutputLine("1000");
+            _output.Received().OutputLine($"PowerTube works with {power} %");
+        }
+
+        [Test]
+        public void CookControllerStop_StartCancelButtonPressedTwice_Stopped()
+        {
+            _controller.StartCooking(60,10);
+            _controller.Stop();
+
+            _output.Received().OutputLine("PowerTube turned off");
         }
 
     }
