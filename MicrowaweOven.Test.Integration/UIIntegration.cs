@@ -54,5 +54,6 @@ namespace MicrowaweOven.Test.Integration
             _output.Received(1).OutputLine("Light is turned off");
         }
     }
+
     }
 
