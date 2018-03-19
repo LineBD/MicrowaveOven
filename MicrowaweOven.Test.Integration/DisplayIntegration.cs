@@ -31,6 +31,7 @@ namespace MicrowaweOven.Test.Integration
             _light = new Light(_output);
             _display = new Display(_output);
             _controller = Substitute.For<ICookController>();
+            _output = Substitute.For<IOutput>();
             _startcancelButton = new Button();
             _powerButton = new Button();
             _timerButton = new Button();
@@ -39,7 +40,12 @@ namespace MicrowaweOven.Test.Integration
 
         [Test]
 
-        
+        public void LogLine_OutPutLineIsCorrect_ShowOutput()
+        {
+            _powerButton.Press();
+
+            _output.Received(1).OutputLine("Display shows: {50} W");
+        }
         
 
     }
