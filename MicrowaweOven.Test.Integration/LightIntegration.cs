@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace MicrowaweOven.Test.Integration
 {
     [TestFixture]
-    class DisplayIntegration
+    class LightIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;
@@ -23,43 +23,35 @@ namespace MicrowaweOven.Test.Integration
         private IDisplay _display;
         private ICookController _controller;
         private IOutput _output;
-        private int power;
-        private int min;
-        private int sec;
 
         [SetUp]
         public void SetUp()
         {
             _door = new Door();
-            _light = new Light(_output);
-            _display = new Display(_output);
-            _controller = Substitute.For<ICookController>();
             _output = Substitute.For<IOutput>();
+            _light = new Light(_output);
+            _display = Substitute.For<IDisplay>();
+            _controller = Substitute.For<ICookController>();
             _startcancelButton = new Button();
             _powerButton = new Button();
             _timerButton = new Button();
-            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
+            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light,
+                _controller);
         }
 
-        
         [Test]
-
-           public void LogLine_OutPutLineIsCorrectPower_ShowOutput()
-
+        public void TurnOn_LightIsOn_OutputIsCorrect()
         {
-            _powerButton.Press();
-            _output.Received().OutputLine($"Display shows: {power} W");
-
+            _light.TurnOn();
+            _output.OutputLine("Light is turned on");
         }
+
         [Test]
-
-        public void LogLine_OutputLineIsCorrectTime_ShowOutput()
+        public void TurnOff_LightIsOff_OutputIsCorrect()
         {
-            _timerButton.Press();
-
-            _output.Received().OutputLine($"Display shows: 01:00");
+            _light.TurnOn();
+            _light.TurnOff();
+            _output.OutputLine("Light is turned off");
         }
-        
-
     }
 }

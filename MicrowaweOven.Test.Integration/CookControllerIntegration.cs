@@ -7,12 +7,13 @@ using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using NSubstitute;
 
 namespace MicrowaweOven.Test.Integration
 {
-    [TestFixture]
-    class DisplayIntegration
+    [TestFixture()]
+    class CookControllerIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;
@@ -23,43 +24,42 @@ namespace MicrowaweOven.Test.Integration
         private IDisplay _display;
         private ICookController _controller;
         private IOutput _output;
-        private int power;
-        private int min;
-        private int sec;
+        private ITimer _timer;
+        private IPowerTube _powerTube;
 
         [SetUp]
         public void SetUp()
         {
             _door = new Door();
-            _light = new Light(_output);
-            _display = new Display(_output);
-            _controller = Substitute.For<ICookController>();
             _output = Substitute.For<IOutput>();
+            _light = Substitute.For<ILight>();
+            _display = Substitute.For<IDisplay>();
+            _timer = new Timer();
+            _powerTube = new PowerTube(_output);
+            _controller = new CookController(_timer,_display,_powerTube);
             _startcancelButton = new Button();
             _powerButton = new Button();
             _timerButton = new Button();
             _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
         }
 
-        
         [Test]
-
-           public void LogLine_OutPutLineIsCorrectPower_ShowOutput()
-
+        [TestCase(60,10)]
+        public void CookControllerStart_StartButtonPressed_Started(int power, int time)
         {
-            _powerButton.Press();
-            _output.Received().OutputLine($"Display shows: {power} W");
+            _controller.StartCooking(power,time);
 
+            _output.Received().OutputLine($"PowerTube works with {power} %");
         }
+
         [Test]
-
-        public void LogLine_OutputLineIsCorrectTime_ShowOutput()
+        public void CookControllerStop_StartCancelButtonPressedTwice_Stopped()
         {
-            _timerButton.Press();
+            _controller.StartCooking(60,10);
+            _controller.Stop();
 
-            _output.Received().OutputLine($"Display shows: 01:00");
+            _output.Received().OutputLine("PowerTube turned off");
         }
-        
 
     }
 }
