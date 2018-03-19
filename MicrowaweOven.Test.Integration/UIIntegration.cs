@@ -107,15 +107,15 @@ namespace MicrowaweOven.Test.Integration
         //    _controller.Received().Stop();
         //}
 
-        [Test]
-        public void Clear_EmptyDisplay_OutputIsCorret()
-        {
-            _door.Open();
-            _door.Close();
-            _powerButton.Press();
-            _timerButton.Press();
-            _display.Received().Clear();
-        }
+        //[Test]
+        //public void Clear_EmptyDisplay_OutputIsCorret()
+        //{
+        //    _door.Open();
+        //    _door.Close();
+        //    _powerButton.Press();
+        //    _timerButton.Press();
+        //    _display.Received().Clear();
+        //}
     }
 }
 
