@@ -63,6 +63,7 @@
     <Compile Include="CookControllerIntegration.cs" />
     <Compile Include="DisplayIntegration.cs" />
     <Compile Include="DoorIntegration.cs" />
+    <Compile Include="LightIntegration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIIntegration.cs" />
   </ItemGroup>
