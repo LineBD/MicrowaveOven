@@ -17,34 +17,35 @@ namespace MicrowaweOven.Test.Integration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;
-            private IButton _powerButton;
-            private IButton _timerButton;
-            private IDoor _door;
-            private ILight _light;
-            private IDisplay _display;
-            private ICookController _controller;
-            private IOutput _output;
+        private IButton _powerButton;
+        private IButton _timerButton;
+        private IDoor _door;
+        private ILight _light;
+        private IDisplay _display;
+        private ICookController _controller;
+        private IOutput _output;
 
-            [SetUp]
-            public void SetUp()
-            {
-                _door = new Door();
-                _output = Substitute.For<IOutput>();
-                _light = new Light(_output);
-                _display = Substitute.For<IDisplay>();
-                _controller = Substitute.For<ICookController>();
-                _startcancelButton = new Button();
-                _powerButton = new Button();
-                _timerButton = new Button();
-                _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
-            }
+        [SetUp]
+        public void SetUp()
+        {
+            _door = new Door();
+            _output = Substitute.For<IOutput>();
+            _light = new Light(_output);
+            _display = Substitute.For<IDisplay>();
+            _controller = Substitute.For<ICookController>();
+            _startcancelButton = new Button();
+            _powerButton = new Button();
+            _timerButton = new Button();
+            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light,
+                _controller);
+        }
 
-            [Test]
-            public void OnDoorClosed_DoorOpen_OutputIsCorrect()
-            {
-                _door.Open();
-                _output.Received(1).OutputLine("Light is turned on");
-            }
+        [Test]
+        public void OnDoorClosed_DoorOpen_OutputIsCorrect()
+        {
+            _door.Open();
+            _output.Received(1).OutputLine("Light is turned on");
+        }
 
         [Test]
         public void OnDoorOpen_DoorClosed_OutputIsCorrect()
@@ -53,7 +54,25 @@ namespace MicrowaweOven.Test.Integration
             _door.Close();
             _output.Received(1).OutputLine("Light is turned off");
         }
-    }
+
+        [Test]
+        public void OnPowerPressed_showPower_OutputIsCorrect()
+        {
+            _powerButton.Press();
+            _display.Received().ShowPower(50);
+        }
+
+        [Test]
+        public void OnTimePressed_showTime_OutputIsCorrect()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _display.Received().ShowTime(1, 0);
+        }
+
+        [Test]
+        public void 
 
     }
+}
 
