@@ -8,6 +8,7 @@ using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using System.Threading;
 
 namespace MicrowaweOven.Test.Integration
 {
