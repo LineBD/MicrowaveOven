@@ -71,21 +71,24 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        public void TurnOn_LightIsOn_OutputIsCorrect()
+        public void StartCooking_LightIsOn_OutputIsCorrect()
         {
             _powerButton.Press();
             _timerButton.Press();
             _startcancelButton.Press();
-            
-            //_light.TurnOn();
-            //_output.Received(1).OutputLine("Light is turned on");
+            _controller.StartCooking(50, 60);
+            _output.Received(1).OutputLine("Light is turned on");
         }
         
         [Test]
         public void TurnOff_LightIsOff_OutputIsCorrect()
         {
-            _light.TurnOn();
-            _light.TurnOff();
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _controller.StartCooking(50, 60);
+            _display.Clear();
+            _controller.Stop();
             _output.Received(1).OutputLine("Light is turned off");
         }
 
@@ -98,18 +101,17 @@ namespace MicrowaweOven.Test.Integration
             _controller.Received().StartCooking(50,60);
         }
 
-        //[Test]
-        //public void StopCooking_CookingStoped_OutputIsCorrect()
-        //{
-        //    _door.Open();
-        //    _door.Close();
-        //    _powerButton.Press();
-        //    _timerButton.Press();
-        //    _startcancelButton.Press();
-        //    _display.Received().Clear();
-        //    _light.Received().TurnOff();
-        //    _controller.Received().Stop();
-        //}
+        [Test]
+        public void StopCooking_CookingStoped_OutputIsCorrect()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _controller.Received().StartCooking(50, 60);
+            _display.Received().Clear();
+            _light.Received().TurnOff();
+            _controller.Received().Stop();
+        }
 
         //[Test]
         //public void Clear_EmptyDisplay_OutputIsCorret()
