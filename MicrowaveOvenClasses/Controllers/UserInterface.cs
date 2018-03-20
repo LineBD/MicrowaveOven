@@ -123,7 +123,7 @@ namespace MicrowaveOvenClasses.Controllers
                 case States.COOKING:
                     myCooker.Stop();
                     myDisplay.Clear();
-                    powerLevel = 50;
+                    powerLevel = 50; //Dette er tilføjet af os
                     time = 1;
                     myState = States.DOOROPEN;
                     break;
