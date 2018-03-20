@@ -44,6 +44,7 @@ namespace MicrowaweOven.Test.Integration
         {
             _light.TurnOn();
             _output.Received(1).OutputLine("Light is turned on");
+            //Dette er unittest, vi intergrer ikke med systemet. Vi vælger ikke at lave en integretionstest af Light, da vi tester på outputtet i UIIntegration. 
         }
 
         [Test]
