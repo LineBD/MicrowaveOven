@@ -45,8 +45,7 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        [TestCase(01,00)]
-        public void TimerOn_TimerPressed_ShowTime(int min, int sec)
+        public void TimerOn_TimerPressed_ShowTime()
         {
             _powerButton.Press();
             _timerButton.Press();
