@@ -43,7 +43,7 @@ namespace MicrowaweOven.Test.Integration
         public void TurnOn_LightIsOn_OutputIsCorrect()
         {
             _light.TurnOn();
-            _output.OutputLine("Light is turned on");
+            _output.Received(1).OutputLine("Light is turned on");
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace MicrowaweOven.Test.Integration
         {
             _light.TurnOn();
             _light.TurnOff();
-            _output.OutputLine("Light is turned off");
+            _output.Received(1).OutputLine("Light is turned off");
         }
     }
 }

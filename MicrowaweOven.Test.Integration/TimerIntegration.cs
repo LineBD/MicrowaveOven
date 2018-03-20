@@ -11,6 +11,7 @@ using NUnit.Framework;
 
 namespace MicrowaweOven.Test.Integration
 {
+    [TestFixture]
     class TimerIntegration
     {
         private IUserInterface _userinterface;
