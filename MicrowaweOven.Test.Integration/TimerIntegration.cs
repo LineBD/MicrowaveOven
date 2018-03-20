@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
-using NUnit.Framework;
 using NSubstitute;
+using NUnit.Framework;
 
 namespace MicrowaweOven.Test.Integration
 {
-    [TestFixture]
-    class DisplayIntegration
+    class TimerIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;
@@ -23,43 +22,31 @@ namespace MicrowaweOven.Test.Integration
         private IDisplay _display;
         private ICookController _controller;
         private IOutput _output;
-        private int power;
-        private int min;
-        private int sec;
+        private ITimer _timer;
+        private IPowerTube _powertube;
 
         [SetUp]
         public void SetUp()
         {
             _door = new Door();
+            _output = Substitute.For<IOutput>();
             _light = new Light(_output);
             _display = new Display(_output);
-            _controller = Substitute.For<ICookController>();
-            _output = Substitute.For<IOutput>();
+            _controller = new CookController(_timer, _display, _powertube);
             _startcancelButton = new Button();
             _powerButton = new Button();
             _timerButton = new Button();
-            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
+            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light,
+                _controller);
+            _timer = new Timer();
+            _powertube = Substitute.For<IPowerTube>();
         }
 
-        
         [Test]
-        [TestCase(50)]
-           public void LogLine_OutPutLineIsCorrectPower_ShowOutput(int power)
-
+        public void OnTimerTick_OnTimerEvent_OutputIsCorret()
         {
-            _display.ShowPower(power);
-            _output.Received().OutputLine($"Display shows: {power} W");
-
+            
+            
         }
-        [Test]
-        [TestCase(00,00)]
-        public void LogLine_OutputLineIsCorrectTime_ShowOutput(int min, int sec)
-        {
-            _display.ShowTime(min,sec);
-
-            _output.Received().OutputLine($"Display shows: {min:D2}:{sec:D2}");
-        }
-        
-
     }
 }
