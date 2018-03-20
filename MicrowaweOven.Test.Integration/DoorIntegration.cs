@@ -15,9 +15,9 @@ namespace MicrowaweOven.Test.Integration
     public class DoorIntegration
     {
         private IUserInterface _userinterface;
-        private IButton _button1;
-        private IButton _button2;
-        private IButton _button3;
+        private IButton _powerButton;
+        private IButton _timerButton;
+        private IButton _startcancelButton;
         private IDoor _door;
         private ILight _light;
         private IDisplay _display;
@@ -27,14 +27,14 @@ namespace MicrowaweOven.Test.Integration
 
         public void Setup ()
         {
-            _button1 = Substitute.For<IButton>();
-            _button2 = Substitute.For<IButton>();
-            _button3 = Substitute.For<IButton>();
+            _powerButton = new Button();
+            _timerButton = new Button();
+            _startcancelButton = new Button();
             _door = new Door();
             _light = Substitute.For<ILight>();
             _display = Substitute.For<IDisplay>();
             _controller = Substitute.For<ICookController>();
-            _userinterface = new UserInterface(_button1,_button2,_button3,_door,_display,_light,_controller);
+            _userinterface = new UserInterface(_powerButton,_timerButton,_startcancelButton,_door,_display,_light,_controller);
         }
 
         [Test]
@@ -57,23 +57,25 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        [TestCase(60,10)]
-        public void OnDoorOpened_OpenDoorWhileCooking_Stop(int power, int time)
+        public void OnDoorOpened_OpenDoorWhileCooking_Stop()
         {
-            _controller.StartCooking(power,time);
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
             _door.Open();
 
             _controller.Received(1).Stop();
         }
 
         [Test]
-        [TestCase(60, 10)]
-        public void OnDoorOpened_OpenDoorWhileCooking_ClearDisplay(int power, int time)
+        public void OnDoorOpened_OpenDoorWhileCooking_ClearDisplay()
         {
-            _controller.StartCooking(power, time);
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
             _door.Open();
 
-            _display.Received(1).Clear();
+            _display.Received(2).Clear();
         }
 
     }
