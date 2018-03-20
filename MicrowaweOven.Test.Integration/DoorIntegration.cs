@@ -56,5 +56,25 @@ namespace MicrowaweOven.Test.Integration
             _light.Received(1).TurnOff();
         }
 
+        [Test]
+        [TestCase(60,10)]
+        public void OnDoorOpened_OpenDoorWhileCooking_Stop(int power, int time)
+        {
+            _controller.StartCooking(power,time);
+            _door.Open();
+
+            _controller.Received(1).Stop();
+        }
+
+        [Test]
+        [TestCase(60, 10)]
+        public void OnDoorOpened_OpenDoorWhileCooking_ClearDisplay(int power, int time)
+        {
+            _controller.StartCooking(power, time);
+            _door.Open();
+
+            _display.Received(1).Clear();
+        }
+
     }
 }
