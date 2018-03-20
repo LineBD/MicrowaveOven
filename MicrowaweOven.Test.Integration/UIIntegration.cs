@@ -71,25 +71,23 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        public void StartCooking_LightIsOn_OutputIsCorrect()
+        public void CookingStart_LightIsOn_OutputIsCorrect()
         {
             _powerButton.Press();
             _timerButton.Press();
             _startcancelButton.Press();
-            _controller.StartCooking(50, 60);
             _output.Received(1).OutputLine("Light is turned on");
         }
         
         [Test]
-        public void TurnOff_LightIsOff_OutputIsCorrect()
+        public void CookingDone_LightIsOff_OutputIsCorrect()
         {
             _powerButton.Press();
             _timerButton.Press();
             _startcancelButton.Press();
-            _controller.StartCooking(50, 60);
-            _display.Clear();
-            _controller.Stop();
+            _userinterface.CookingIsDone();
             _output.Received(1).OutputLine("Light is turned off");
+            
         }
 
         [Test]
@@ -102,26 +100,26 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        public void StopCooking_CookingStoped_OutputIsCorrect()
+        public void StopCooking_CookingStopped_OutputIsCorrect()
         {
             _powerButton.Press();
             _timerButton.Press();
             _startcancelButton.Press();
-            _controller.Received().StartCooking(50, 60);
+            _userinterface.CookingIsDone();
             _display.Received().Clear();
-            _light.Received().TurnOff();
-            _controller.Received().Stop();
+            
         }
 
-        //[Test]
-        //public void Clear_EmptyDisplay_OutputIsCorret()
-        //{
-        //    _door.Open();
-        //    _door.Close();
-        //    _powerButton.Press();
-        //    _timerButton.Press();
-        //    _display.Received().Clear();
-        //}
+        [Test]
+        public void ClearDisplay_DisplayCleared_OutputIsCorrect()
+        {
+            _door.Open();
+            _door.Close();
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _display.Received().Clear();
+        }
     }
 }
 
