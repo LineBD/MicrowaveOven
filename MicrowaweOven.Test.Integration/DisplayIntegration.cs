@@ -41,23 +41,23 @@ namespace MicrowaweOven.Test.Integration
             _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
         }
 
-
         
         [Test]
+        [TestCase(50)]
+           public void LogLine_OutPutLineIsCorrectPower_ShowOutput(int power)
 
-           public void LogLine_OutPutLineIsCorrectPower_ShowOutput()
         {
-            _powerButton.Press();
+            _display.ShowPower(power);
             _output.Received().OutputLine($"Display shows: {power} W");
 
         }
         [Test]
-
-        public void LogLine_OutputLineIsCorrectTime_ShowOutput()
+        [TestCase(00,00)]
+        public void LogLine_OutputLineIsCorrectTime_ShowOutput(int min, int sec)
         {
-            _timerButton.Press();
+            _display.ShowTime(min,sec);
 
-            _output.Received().OutputLine($"Display shows: 01:00");
+            _output.Received().OutputLine($"Display shows: {min:D2}:{sec:D2}");
         }
         
 

@@ -47,11 +47,67 @@ namespace MicrowaweOven.Test.Integration
         [Test]
         public void TimerOn_TimerPressed_ShowTime()
         {
+            _powerButton.Press();
             _timerButton.Press();
 
             _display.Received(1).ShowTime(01,00);
 
-            //Hvorfor fungerer den ikke, når det kører over?
         }
+
+        [Test]
+        public void TurnOnMicrowave_StartCancelPressed_LightTurnedOn()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+
+            _light.Received(1).TurnOn();
+        }
+
+    
+        [Test]
+        public void TurnOnMicrowave_StartCancelPressed_StartCooking()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+
+            _controller.Received(1).StartCooking(50,60);
+        }
+
+        [Test]
+        public void Cancel_StartCancelPressedWhileCooking_ClearDisplay()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _startcancelButton.Press();
+
+            _display.Received(2).Clear();
+        }
+
+        [Test]
+        public void Cancel_StartCancelPressedWhileCooking_StopCooking()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _startcancelButton.Press();
+
+            _controller.Received(1).Stop();
+        }
+
+        [Test]
+        public void Cancel_StartCancelPressedWhileCooking_TurnOffLight()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _startcancelButton.Press();
+
+            _light.Received(1).TurnOff();
+        }
+
+
     }
 }
