@@ -59,6 +59,8 @@ namespace MicrowaweOven.Test.Integration
 
             _output.Received().OutputLine($"Display shows: {min:D2}:{sec:D2}");
         }
+
+        //Vælger vi ikke at teste på, da vi tester på outputtet i UIInetegration. 
         
 
     }
