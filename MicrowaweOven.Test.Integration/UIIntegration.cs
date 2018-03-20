@@ -73,16 +73,20 @@ namespace MicrowaweOven.Test.Integration
         [Test]
         public void TurnOn_LightIsOn_OutputIsCorrect()
         {
-            _light.TurnOn();
-            _output.OutputLine("Light is turned on");
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            
+            //_light.TurnOn();
+            //_output.Received(1).OutputLine("Light is turned on");
         }
-
+        
         [Test]
         public void TurnOff_LightIsOff_OutputIsCorrect()
         {
             _light.TurnOn();
             _light.TurnOff();
-            _output.OutputLine("Light is turned off");
+            _output.Received(1).OutputLine("Light is turned off");
         }
 
         [Test]
