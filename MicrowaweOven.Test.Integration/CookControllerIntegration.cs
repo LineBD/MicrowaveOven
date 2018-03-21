@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
@@ -9,6 +10,7 @@ using MicrowaveOvenClasses.Interfaces;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using NSubstitute;
+using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace MicrowaweOven.Test.Integration
 {
@@ -68,7 +70,9 @@ namespace MicrowaweOven.Test.Integration
         {
             _controller.StartCooking(60, 10);
 
-            _timer.Received(1).Start(time);
+            Thread.Sleep(1050);
+
+            _output.Received(2).OutputLine(Arg.Is<string>(str => str.Contains("00:01")));
         }
     }
 }
