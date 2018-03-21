@@ -89,7 +89,7 @@ namespace MicrowaweOven.Test.Integration
             _output.ClearReceivedCalls();
 
             ManualResetEvent pause = new ManualResetEvent(false);
-            pause.WaitOne(60000);
+            pause.WaitOne(61000);
             //Thread.Sleep(61000);
 
             _output.Received(1).OutputLine("Display cleared");
