@@ -12,7 +12,7 @@ using NSubstitute;
 namespace MicrowaweOven.Test.Integration
 {
     [TestFixture]
-    public class DoorIntegration
+    public class IT0_DoorIntegration
     {
         private IUserInterface _userinterface;
         private IButton _powerButton;
