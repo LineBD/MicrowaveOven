@@ -72,7 +72,7 @@ namespace MicrowaweOven.Test.Integration
             _timerButton.Press();
             _startcancelButton.Press();
 
-            _controller.Received(1).StartCooking(50,60);
+            _controller.Received(1).StartCooking(50,60000);
         }
 
         [Test]
