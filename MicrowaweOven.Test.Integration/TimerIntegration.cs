@@ -36,7 +36,7 @@ namespace MicrowaweOven.Test.Integration
             _startcancelButton = new Button();
             _powerButton = new Button();
             _timerButton = new Button();
-            
+
             _timer = new Timer();
             _light = new Light(_output);
             _display = new Display(_output);
@@ -47,20 +47,50 @@ namespace MicrowaweOven.Test.Integration
                 _controller);
             _controller.UI = _userinterface;
 
-            }
+        }
 
         [Test]
-        public void OnTimerTick_OnTimerEvent_OutputIsCorrect()
+        public void OnTimerTick_TimerButtonPressedOnce_OutputIsCorrect()
         {
             _powerButton.Press();
             _timerButton.Press();
-             _startcancelButton.Press();
-            _controller.StartCooking(50, 60);
-            //Thread.Sleep(1050);
-            _output.Received().OutputLine("Display shows: 01:00");
+            _startcancelButton.Press();
+            Thread.Sleep(1000);
+            _output.Received().OutputLine("Display shows: 00:59");
 
 
-            
+        }
+
+        [Test]
+        public void OnTimerTick_TimerButtonPressedTwice_OutputIsCorrect()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            Thread.Sleep(1050);
+            _output.Received().OutputLine("Display shows: 01:59");
+
+        }
+
+        [Test]
+        public void OnTimertick_PowerButtonPressedOnce_OutputIsCorrect()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _output.Received().OutputLine("Display shows: 50 W");
+
+        }
+        [Test]
+        public void OnTimerTick_TimeRunsOut_OutputIsCorrect()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            Thread.Sleep(60000);
+            _output.Received().OutputLine("Display cleared");
+
         }
     }
 }
