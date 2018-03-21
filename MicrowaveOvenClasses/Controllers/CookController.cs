@@ -67,9 +67,9 @@ namespace MicrowaveOvenClasses.Controllers
             //myDisplay.ShowTime(remaining/60, remaining % 60);
 
 
-            var remaining = Convert.ToDouble(myTimer.TimeRemaining);
-            var t = TimeSpan.FromMilliseconds(remaining);
-            myDisplay.ShowTime(t.Minutes, t.Seconds);
+            var remainingTime = Convert.ToDouble(myTimer.TimeRemaining);
+            var time = TimeSpan.FromMilliseconds(remainingTime);
+            myDisplay.ShowTime(time.Minutes, time.Seconds);
         }
     }
 }
