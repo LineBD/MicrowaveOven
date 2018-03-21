@@ -42,23 +42,23 @@ namespace MicrowaweOven.Test.Integration
         }
 
         
-        [Test]
-        [TestCase(50)]
-           public void LogLine_OutPutLineIsCorrectPower_ShowOutput(int power)
+        //[Test]
+        //[TestCase(50)]
+        //   public void LogLine_OutPutLineIsCorrectPower_ShowOutput(int power)
 
-        {
-            _display.ShowPower(power);
-            _output.Received().OutputLine($"Display shows: {power} W");
+        //{
+        //    _display.ShowPower(power);
+        //    _output.Received().OutputLine($"Display shows: {power} W");
 
-        }
-        [Test]
-        [TestCase(00,00)]
-        public void LogLine_OutputLineIsCorrectTime_ShowOutput(int min, int sec)
-        {
-            _display.ShowTime(min,sec);
+        //}
+        //[Test]
+        //[TestCase(00,00)]
+        //public void LogLine_OutputLineIsCorrectTime_ShowOutput(int min, int sec)
+        //{
+        //    _display.ShowTime(min,sec);
 
-            _output.Received().OutputLine($"Display shows: {min:D2}:{sec:D2}");
-        }
+        //    _output.Received().OutputLine($"Display shows: {min:D2}:{sec:D2}");
+        //}
         
 
     }
