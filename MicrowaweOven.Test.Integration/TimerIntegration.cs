@@ -52,15 +52,16 @@ namespace MicrowaweOven.Test.Integration
         [Test]
         public void OnTimerTick_TimerButtonPressedOnce_OutputIsCorrect()
         {
-            _powerButton.Press();
-            _timerButton.Press();
-            _startcancelButton.Press();
+            //_powerButton.Press();
+            //_timerButton.Press();
+            //_startcancelButton.Press();
+            _controller.StartCooking(50, 60000);
             Thread.Sleep(1000);
             _output.Received().OutputLine("Display shows: 00:59");
 
 
         }
-
+        
         [Test]
         public void OnTimerTick_TimerButtonPressedTwice_OutputIsCorrect()
         {
