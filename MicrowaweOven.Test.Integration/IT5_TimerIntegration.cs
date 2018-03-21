@@ -14,7 +14,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 namespace MicrowaweOven.Test.Integration
 {
     [TestFixture]
-    class TimerIntegration
+    class IT5_TimerIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;

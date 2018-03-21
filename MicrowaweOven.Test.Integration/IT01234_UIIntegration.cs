@@ -13,7 +13,7 @@ using NSubstitute;
 namespace MicrowaweOven.Test.Integration
 {
     [TestFixture]
-    class UIIntegration
+    class IT01234_UIIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;

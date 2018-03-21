@@ -11,8 +11,7 @@ using NUnit.Framework;
 
 namespace MicrowaweOven.Test.Integration
 {
-    [TestFixture]
-    class LightIntegration
+    class IT6_PowerTubeIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;
@@ -23,6 +22,9 @@ namespace MicrowaweOven.Test.Integration
         private IDisplay _display;
         private ICookController _controller;
         private IOutput _output;
+        private ITimer _timer;
+        private IPowerTube _powerTube;
+
 
         [SetUp]
         public void SetUp()
@@ -30,29 +32,16 @@ namespace MicrowaweOven.Test.Integration
             _door = new Door();
             _output = Substitute.For<IOutput>();
             _light = new Light(_output);
-            _display = Substitute.For<IDisplay>();
-            _controller = Substitute.For<ICookController>();
+            _display = new Display(_output);
+            _timer = new Timer();
+            _powerTube = new PowerTube(_output);
+            _controller = new CookController(_timer, _display, _powerTube);
             _startcancelButton = new Button();
             _powerButton = new Button();
             _timerButton = new Button();
-            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light,
-                _controller);
+            _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
         }
 
-        [Test]
-        public void TurnOn_LightIsOn_OutputIsCorrect()
-        {
-            _light.TurnOn();
-            _output.Received(1).OutputLine("Light is turned on");
-            //Dette er unittest, vi intergrer ikke med systemet. Vi vælger ikke at lave en integretionstest af Light, da vi tester på outputtet i UIIntegration. 
-        }
-
-        [Test]
-        public void TurnOff_LightIsOff_OutputIsCorrect()
-        {
-            _light.TurnOn();
-            _light.TurnOff();
-            _output.Received(1).OutputLine("Light is turned off");
-        }
+        //Vælger vi ikke at teste på. Da vi tester på outputtet i UIIntegrationstest.
     }
 }
