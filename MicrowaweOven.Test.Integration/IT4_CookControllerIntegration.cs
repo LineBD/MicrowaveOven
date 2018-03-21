@@ -15,7 +15,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 namespace MicrowaweOven.Test.Integration
 {
     [TestFixture()]
-    class CookControllerIntegration
+    class IT4_CookControllerIntegration
     {
         private IUserInterface _userinterface;
         private IButton _startcancelButton;
@@ -66,15 +66,17 @@ namespace MicrowaweOven.Test.Integration
         }
 
         [Test]
-        [TestCase(50,10000)]
-        public void CookControllerStart_CookControllerStart_UntilTimeExpires(int power, int time)
+        public void CookControllerStart_CookControllerStart_UntilTimeExpires()
         {
-            _controller.StartCooking(50, 10000);
-            Thread.Sleep(1000);
-            _output.ClearReceivedCalls();
-            Thread.Sleep(9000);
 
-            _display.Received(1).ShowTime(0,9);
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _output.ClearReceivedCalls();
+            ManualResetEvent pause = new ManualResetEvent(false);
+            pause.WaitOne(3000);
+
+            _output.Received().OutputLine(Arg.Is<string>(str => str.Contains("Display shows")));
             
         }
 
@@ -86,9 +88,9 @@ namespace MicrowaweOven.Test.Integration
             _startcancelButton.Press();
             _output.ClearReceivedCalls();
 
-            //ManualResetEvent pause = new ManualResetEvent(false);
-            //pause.WaitOne(60000);
-            Thread.Sleep(61000);
+            ManualResetEvent pause = new ManualResetEvent(false);
+            pause.WaitOne(60000);
+            //Thread.Sleep(61000);
 
             _output.Received(1).OutputLine("Display cleared");
         }

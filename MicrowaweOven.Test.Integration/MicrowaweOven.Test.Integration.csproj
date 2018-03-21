@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IT1_ButtonIntegration.cs" />
-    <Compile Include="CookControllerIntegration.cs" />
+    <Compile Include="IT4_CookControllerIntegration.cs" />
     <Compile Include="IT3_DisplayIntegration.cs" />
     <Compile Include="IT0_DoorIntegration.cs" />
     <Compile Include="IT2_LightIntegration.cs" />
