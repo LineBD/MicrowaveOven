@@ -24,7 +24,7 @@ namespace MicrowaveOvenClasses.Boundary
 
         public void Start(int time)
         {
-            TimeRemaining = time;
+            TimeRemaining = time; // evt *1000
             timer.Enabled = true;
         }
 
