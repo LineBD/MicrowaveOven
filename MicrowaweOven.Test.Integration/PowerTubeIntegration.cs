@@ -41,5 +41,7 @@ namespace MicrowaweOven.Test.Integration
             _timerButton = new Button();
             _userinterface = new UserInterface(_powerButton, _timerButton, _startcancelButton, _door, _display, _light, _controller);
         }
+
+        //Vælger vi ikke at teste på. Da vi tester på outputtet i UIIntegrationstest.
     }
 }
