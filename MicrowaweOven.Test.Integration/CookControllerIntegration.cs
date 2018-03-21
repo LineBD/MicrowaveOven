@@ -66,12 +66,43 @@ namespace MicrowaweOven.Test.Integration
 
         [Test]
         [TestCase(50,10000)]
-        public void CookControllerStart_CookControllerStart_TimerOn(int power, int time)
+        public void CookControllerStart_CookControllerStart_UntilTimeExpires(int power, int time)
+        {
+            _controller.StartCooking(50, 10000);
+            Thread.Sleep(1000);
+            _output.ClearReceivedCalls();
+            Thread.Sleep(9000);
+
+            _display.Received(1).ShowTime(0,9);
+            
+        }
+
+        [Test]
+        public void CookControllerStart_CookControllerStart_OnTimerExpired()
+        {
+            _powerButton.Press();
+            _timerButton.Press();
+            _startcancelButton.Press();
+            _output.ClearReceivedCalls();
+
+            //ManualResetEvent pause = new ManualResetEvent(false);
+            //pause.WaitOne(60000);
+            Thread.Sleep(61000);
+
+            _output.Received(1).OutputLine("Display cleared");
+        }
+
+        [Test]
+        [TestCase(50, 10000)]
+        public void CookControllerStart_CookControllerStart_CookingIsNOTDone()
         {
             _controller.StartCooking(50, 10000);
 
+            Thread.Sleep(9900);
 
-            
+            _display.DidNotReceive().Clear();
         }
+
+
     }
 }
